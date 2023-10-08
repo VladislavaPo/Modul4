@@ -12,3 +12,6 @@ class Advertisement(models.Model):  # для создания модели из 
 
     class Meta:
         db_table = "advertisements"  # поле для изменения названия таблицы
+
+    def __str__(self):  # переопределение методов
+        return f"Advertisement(id={self.id}, title={self.title}, price={self.price}"  # когда мы используем эту функцию то нужно вывести
