@@ -22,6 +22,16 @@ class Advertisement(models.Model):  # для создания модели из 
             )  # отдельный стиль
         return self.created_at.strftime('%d.%m.%Y в %H:%M:%S')  # если дата другая
 
+    @admin.display(description='Дата изменения')  # дз
+    def updated_date(self):
+        from django.utils import timezone
+        if self.updated_at.date() == timezone.now().date():
+            updated_date = self.updated_at.strftime('%H:%M:%S')
+            return format_html(
+                '<span style="color: pink; font-weight:bold;">Сегодня в {}</span>', updated_date
+            )
+        return self.updated_at.strftime('%d.%m.%Y в %H:%M:%S')
+
     class Meta:
         db_table = "advertisements"  # поле для изменения названия таблицы
 
