@@ -43,6 +43,14 @@ class Advertisement(
             )
         return self.updated_at.strftime('%d.%m.%Y в %H:%M:%S')
 
+    @admin.display(description='Изображение')  # дз м4.у5 картинка из ссылки в картинку
+    def get_html_image(self):
+        if self.image:
+            return format_html(
+                '<img src="{url}" style="max-width: 80px; max-height: 80px;"', url=self.image.url
+            )
+
+
     class Meta:
         db_table = "advertisements"  # поле для изменения названия таблицы
 
