@@ -4,12 +4,12 @@ from .models import Advertisement  # для получения данных из
 
 class AdvertisementAdmin(admin.ModelAdmin):  # наследуем из род. класса работающего с админской панелью для переопределения структур
     # pass  # для тестирования
-    list_display = ['id', 'title', 'description', 'price', 'created_date', 'updated_date', 'auction']  # то что будет отображаться
+    list_display = ['id', 'title', 'description', 'price', 'created_date', 'updated_date', 'auction', 'image']  # то что будет отображаться
     list_filter = ['auction', 'created_at']  # фильтрация по
     actions = ['make_auction_as_false', 'make_auction_as_true']  # какие-то быстрые действия
     fieldsets = (
         ('Общее', {
-            'fields': ('title', 'description')
+            'fields': ('title', 'description', 'image')
         }),
         ('Финансы', {
             'fields': ('price', 'auction'),
