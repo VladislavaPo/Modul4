@@ -21,9 +21,9 @@ def advertisement_post(request):  # работает со страницей "р
     if request.method == "POST":  # если перед нами POST запрос(мы получаем данные)
         form = AdvertisementForm(request.POST, request.FILES)  # чтобы хранить то что получили - вытягиваем все данные из запроса
         if form.is_valid():  # проверяем на валидность - работоспособность данных, правильно ли форма заполнена
-            advertisement = Advertisement(**form.cleaned_data)  # является частью модели
+            advertisement = form.save(commit=False)  # сохраняет всю форму(последнее сохранение не записывается)
             advertisement.user = request.user  # ставит вместо "пользователя" пользователя который последний над ней работал
-            advertisement.save()  # сохраняем запрос
+            advertisement.save()
             url = reverse('main-page')  # создает ссылку на домашнюю ссылку
             return redirect(url)  # открывает домашнюю страницу и отправляет туда
     else:  # если запрос неправильный

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Advertisement
+from django.core.exceptions import ValidationError
 
 
 class AdvertisementForm(forms.ModelForm):  # дз
@@ -14,3 +15,14 @@ class AdvertisementForm(forms.ModelForm):  # дз
     class Meta:
         model = Advertisement
         fields = ("title", "description", "image", "price", "auction")
+
+    # def valid_title(self):
+    #     title = self.cleaned_data['title']
+    #     if title.startswith('?'):
+    #         raise ValidationError('Заголовок не должен начинаться с вопросительного знака!')
+    #     return title
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if title.startswith('?'):
+            raise ValidationError('Заголовок не может начинаться с вопросительного знака.')
+        return title
