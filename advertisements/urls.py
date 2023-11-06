@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_advertisements.urls')),  # здесь формируем ссылку на проект app_advertisements, тк. '' это будет начальная страница, переделывает строку в ссылку
-    path('lesson_4', include('app_lesson_4.urls'))
+    path('lesson_4', include('app_lesson_4.urls')),
+    path('my_auth/', include('app_auth.urls'))
 
 ]
 

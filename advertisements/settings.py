@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_advertisements',
     'app_lesson_4',
+    'app_auth',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'advertisements.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Path.joinpath(BASE_DIR, 'templates')],  # директория: [библиотека Path.функция чтобы склеить ссылку из нескольких частей(путь до главной папки проекта, где ищем папку templates)]
+        'DIRS': [Path.joinpath(BASE_DIR)],  # директория: [библиотека Path.функция чтобы склеить ссылку из нескольких частей(путь до главной папки проекта, где ищем папку templates)]
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

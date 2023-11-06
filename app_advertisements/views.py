@@ -10,11 +10,11 @@ def index(request):  # для принятия запроса
     context = {'advertisements': advertisements}  # словарь для контекста
     # return HttpResponse('Все работает')  # сам ответ в виде текста
     # return render(request, 'index.html')  # ответ в виде html файла index
-    return render(request, 'index.html', context)  # добавляем контекст
+    return render(request, 'app_advertisements/index.html', context)  # добавляем контекст
 
 
 def top_sellers(request):  # открывает топ продавцов
-    return render(request, 'top-sellers.html')
+    return render(request, 'app_advertisements/top-sellers.html')
 
 
 def advertisement_post(request):  # работает со страницей "разместить объявление"
@@ -29,5 +29,5 @@ def advertisement_post(request):  # работает со страницей "р
     else:  # если запрос неправильный
         form = AdvertisementForm()
     context = {'form': form}  # должно работать всегда
-    return render(request, 'advertisement-post.html', context)
+    return render(request, 'app_advertisements/advertisement-post.html', context)
 
