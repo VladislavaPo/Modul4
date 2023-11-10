@@ -35,9 +35,10 @@ def logout_view(request):
     return redirect(reverse('login'))
 
 
-def register_view(request):
-    if request.method == "POST":
+def register_view(request):  # дз 2
+    if request.method == "POST":  # проверяем запрос
         form = ExtendedUserCreationForm(request.POST)
+        # ExtendedUserCreationForm - из forms
         if form.is_valid():
             user = form.save()
             user = authenticate(username=user.username, password=request.POST['password1'])

@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}
-ТОП продавцов
-{% endblock %}
-
+{% block title %} Топ-продавцов {% endblock %}
 {% block content %}
   <ul class="nav nav-pills sticky-top bg-white nav-fill">
     <li class="nav-item">
-      <a class="nav-link"  href="{% url 'main-page' %}">
+      <a class="nav-link"  href="/">
         <span style="font-weight: bold;">Главная</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
+      <a class="nav-link active" aria-current="page" href="top-sellers.html"><span style="font-weight: bold;">Топ продавцов</span>
       </a>
     </li>
     <li class="nav-item">
@@ -21,26 +17,29 @@
         <span style="font-weight: bold;">Разместить объявление</span>
       </a>
     </li>
+    {% if not user.is_authenticated %}
     <li class="nav-item">
-      <a class="nav-link" href="register.html">
+      <a class="nav-link" href="{% url 'register' %}">
         <span style="font-weight: bold;">Регистрация</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="login.html">
+      <a class="nav-link" href="{% url 'login' %}">
         <span style="font-weight: bold;">Войти</span>
       </a>
     </li>
+    {% else %}
     <li class="nav-item">
-      <a class="nav-link" href="profile.html">
+      <a class="nav-link" href="{% url 'profile' %}">
         <span style="font-weight: bold;">Профиль</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{% url 'logout' %}">
         <span style="font-weight: bold;">Выйти</span>
       </a>
     </li>
+    {% endif %}
   </ul>
   <div class="row">
     <div class="col" style="margin: 50px;">

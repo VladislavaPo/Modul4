@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 User = get_user_model()
 
 
-class ExtendedUserCreationForm(UserCreationForm):
+class ExtendedUserCreationForm(UserCreationForm):  # работает с созданием вкладки пользователя
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control form-control-lg'
