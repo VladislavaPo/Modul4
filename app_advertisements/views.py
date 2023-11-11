@@ -3,18 +3,35 @@ from django.urls import reverse
 from django.http import HttpResponse  # для отправки ответа на запрос пользователя
 from .models import Advertisement
 from .forms import AdvertisementForm
+from django.contrib.auth import get_user_model
+from django.db.models import Count
+
+
+def advertisement_detail(request, pk):  # работает с гет запросом, вытаскивает id и вставляем в ссылке вместо pk
+    advertisement = Advertisement.objects.get(id=pk)
+    context = {'advertisement': advertisement, }
+    return render(request, 'app_advertisements/advertisement.html', context)
 
 
 def index(request):  # для принятия запроса
-    advertisements = Advertisement.objects.all()  # импортирует все объекты
-    context = {'advertisements': advertisements}  # словарь для контекста
-    # return HttpResponse('Все работает')  # сам ответ в виде текста
-    # return render(request, 'index.html')  # ответ в виде html файла index
+    title = request.GET.get('query')  # вытаскиваем заголовок для поиска
+    if title:  # есть ли заголовок
+        advertisements = Advertisement.objects.filter(title__icontains=title)  # выводим только объявления с нужным заголовком
+    else:
+        advertisements = Advertisement.objects.all()  # импортирует все объекты
+    context = {'advertisements': advertisements,
+                'title': title,
+               }  # словарь для контекста
     return render(request, 'app_advertisements/index.html', context)  # добавляем контекст
 
 
+User = get_user_model()
+
+
 def top_sellers(request):  # открывает топ продавцов
-    return render(request, 'app_advertisements/top-sellers.html')
+    users = User.objects.annotate(adv_count=Count('advertisement')).order_by('-adv_count')
+    context = {'users': users, }
+    return render(request, 'app_advertisements/top-sellers.html', context)
 
 
 def advertisement_post(request):  # работает со страницей "разместить объявление"

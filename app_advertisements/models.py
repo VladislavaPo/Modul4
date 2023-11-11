@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 from django.utils.html import format_html
 from django.contrib.auth import get_user_model  # получение пользователей
+from django.urls import reverse
 
 User = get_user_model()  # хранит полученных пользователей
 
@@ -22,6 +23,9 @@ class Advertisement(
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE,
                              null=True)  # хранит одного пользователя (переменная со всеми переменнами в связи один ко многим)
     image = models.ImageField("Изображение", upload_to="advertisements/")  # хранит путь до изображения
+
+    def get_absolute_url(self):
+        return reverse('adv-detail', kwargs={'pk': self.pk})  # возвращает adv-detail и добавляет pk который заменяет на self.pk - мы передаем параметры
 
     @admin.display(description='Дата создания')
     def created_date(self):  # для того чтобы если время заявление создано сегодня то выводилось "Сегодня в ***"
